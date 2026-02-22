@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { projects } from '../data/resume.js'
 
 const STATUS_COLOR = {
@@ -10,6 +10,7 @@ const STATUS_COLOR = {
 export default function CommandCenter({ navigate }) {
   const [selected, setSelected] = useState(null)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
+  const briefingRef = useRef(null)
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 640)
@@ -53,7 +54,13 @@ export default function CommandCenter({ navigate }) {
             {projects.map((p) => (
               <button
                 key={p.id}
-                onClick={() => setSelected(selected === p.id ? null : p.id)}
+                onClick={() => {
+                  const next = selected === p.id ? null : p.id
+                  setSelected(next)
+                  if (next && isMobile) {
+                    setTimeout(() => briefingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+                  }
+                }}
                 style={{
                   width: '100%',
                   textAlign: 'left',
@@ -141,7 +148,7 @@ export default function CommandCenter({ navigate }) {
 
         {/* Mission briefing panel */}
         {active && (
-          <div className={isMobile ? '' : 'sc-scroll'}>
+          <div ref={briefingRef} className={isMobile ? '' : 'sc-scroll'}>
             <div className="sc-panel" style={{ height: 'fit-content' }}>
               <div
                 style={{

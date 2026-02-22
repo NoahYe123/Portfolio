@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { profile } from '../data/resume.js'
 
 const LINKS = [
@@ -34,6 +34,13 @@ const LINES = [
 
 export default function TransmissionScreen({ navigate }) {
   const [copied, setCopied] = useState(null)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   const copy = (text, key) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -47,7 +54,7 @@ export default function TransmissionScreen({ navigate }) {
       style={{
         position: 'relative',
         zIndex: 10,
-        width: '80%',
+        width: '100%',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -56,7 +63,7 @@ export default function TransmissionScreen({ navigate }) {
       }}
     >
       {/* Radar background */}
-      <div aria-hidden="true" style={{
+      {!isMobile && <div aria-hidden="true" style={{
         position: 'absolute',
         right: '-5%',
         bottom: '10%',
@@ -119,7 +126,7 @@ export default function TransmissionScreen({ navigate }) {
             animation: `blip 4s ${pos.delay} ease-out infinite`,
           }} />
         ))}
-      </div>
+      </div>}
       <div className="screen-title">TRANSMISSION</div>
       <div className="screen-subtitle">// SECURE COMM — OPEN CHANNEL</div>
 
@@ -127,7 +134,7 @@ export default function TransmissionScreen({ navigate }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 2fr',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr',
             gap: '1.5rem',
             paddingBottom: '2rem',
           }}
