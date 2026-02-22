@@ -131,11 +131,21 @@ export default function TransmissionScreen({ navigate }) {
       <div className="screen-title">TRANSMISSION</div>
       <div className="screen-subtitle">// SECURE COMM — OPEN CHANNEL</div>
 
-      <div className="sc-scroll" style={{ flex: 1, position: 'relative', zIndex: 1 }}>
+      <div
+        className={isMobile ? '' : 'sc-scroll'}
+        style={{
+          flex: 1,
+          position: 'relative',
+          zIndex: 1,
+          overflowY: isMobile ? 'auto' : undefined,
+        }}
+      >
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr',
+            gridAutoRows: 'auto',
+            alignContent: 'start',
             gap: '1.5rem',
             paddingBottom: '2rem',
           }}
@@ -192,8 +202,8 @@ export default function TransmissionScreen({ navigate }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {[
                 ['SIGNAL STRENGTH', '████████░░', 'var(--success)'],
-                ['ENCRYPTION',      'AES-256',    'var(--accent)'],
-                ['STATUS',          'OPEN',        'var(--success)'],
+                ['ENCRYPTION', 'AES-256', 'var(--accent)'],
+                ['STATUS', 'OPEN', 'var(--success)'],
               ].map(([label, val, color]) => (
                 <div
                   key={label}
