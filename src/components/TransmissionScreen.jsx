@@ -51,6 +51,7 @@ export default function TransmissionScreen({ navigate }) {
 
   return (
     <div
+      className="screen-mobile-pad"
       style={{
         position: 'relative',
         zIndex: 10,

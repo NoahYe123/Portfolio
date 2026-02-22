@@ -74,6 +74,7 @@ function SkillBar({ name, level }) {
 export default function ArmoryScreen({ navigate }) {
   return (
     <div
+      className="screen-mobile-pad"
       style={{
         position: 'relative',
         zIndex: 10,

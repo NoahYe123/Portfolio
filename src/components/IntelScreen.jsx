@@ -3,6 +3,7 @@ import { education, leadership, profile } from '../data/resume.js'
 export default function IntelScreen({ navigate }) {
   return (
     <div
+      className="screen-mobile-pad"
       style={{
         position: 'relative',
         zIndex: 10,
@@ -21,7 +22,7 @@ export default function IntelScreen({ navigate }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
             gap: '1.5rem',
             paddingBottom: '2rem',
           }}

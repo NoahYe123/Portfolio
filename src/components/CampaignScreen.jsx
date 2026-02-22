@@ -9,6 +9,7 @@ const TYPE_COLOR = {
 export default function CampaignScreen({ navigate }) {
   return (
     <div
+      className="screen-mobile-pad"
       style={{
         position: 'relative',
         zIndex: 10,
