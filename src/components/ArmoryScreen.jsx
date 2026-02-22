@@ -36,13 +36,20 @@ function SkillBar({ name, level }) {
           display: 'flex',
           justifyContent: 'space-between',
           marginBottom: '0.35rem',
+          flexWrap: 'wrap',
+          alignItems: 'flex-start',
+          gap: '0.4rem',
         }}
       >
         <span
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.9rem',
-            color: 'var(--text)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.9rem',
+          color: 'var(--text)',
+          wordBreak: 'break-word',
+          overflowWrap: 'anywhere',
+          flex: 1,
+          minWidth: 0,
           }}
         >
           {name}
@@ -76,22 +83,24 @@ export default function ArmoryScreen({ navigate }) {
         flexDirection: 'column',
         padding: '2rem',
         paddingBottom: '1rem',
+        overflowX: 'hidden',
       }}
     >
       <div className="screen-title">ARMORY</div>
       <div className="screen-subtitle">// TECHNOLOGY LOADOUT — EQUIPMENT MANIFEST</div>
 
-      <div className="sc-scroll" style={{ flex: 1 }}>
+      <div className="sc-scroll" style={{ flex: 1, overflowX: 'hidden' }}>
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
             gap: '1.5rem',
             paddingBottom: '2rem',
+            minWidth: 0,
           }}
         >
           {SECTIONS.map(({ key, label, icon }) => (
-            <div key={key} className="sc-panel">
+            <div key={key} className="sc-panel" style={{ minWidth: 0, overflow: 'hidden' }}>
               <div
                 style={{
                   display: 'flex',
