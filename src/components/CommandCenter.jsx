@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { projects } from '../data/resume.js'
 
 const STATUS_COLOR = {
@@ -9,6 +9,13 @@ const STATUS_COLOR = {
 
 export default function CommandCenter({ navigate }) {
   const [selected, setSelected] = useState(null)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   const active = selected ? projects.find(p => p.id === selected) : null
 
@@ -32,14 +39,16 @@ export default function CommandCenter({ navigate }) {
         style={{
           flex: 1,
           display: 'grid',
-          gridTemplateColumns: active ? '1fr 1fr' : 'minmax(0, 50%)',
+          gridTemplateColumns: isMobile ? '1fr' : active ? '1fr 1fr' : 'minmax(0, 50%)',
+          gridTemplateRows: isMobile ? 'auto' : '1fr',
           gap: '1.5rem',
-          overflow: 'hidden',
+          overflow: isMobile ? 'hidden' : 'hidden',
+          overflowY: isMobile ? 'auto' : 'hidden',
           minHeight: 0,
         }}
       >
         {/* Project list */}
-        <div className="sc-scroll">
+        <div className={isMobile ? '' : 'sc-scroll'}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingBottom: '1rem' }}>
             {projects.map((p) => (
               <button
@@ -50,7 +59,7 @@ export default function CommandCenter({ navigate }) {
                   textAlign: 'left',
                   background: selected === p.id ? 'rgba(0,212,255,0.1)' : 'var(--panel)',
                   border: `1px solid ${selected === p.id ? 'var(--accent)' : 'var(--border)'}`,
-                  padding: '2.25rem 4.5rem 2.25rem 1.25rem',
+                  padding: isMobile ? '1rem 2.5rem 1rem 1rem' : '2.25rem 4.5rem 2.25rem 1.25rem',
                   cursor: 'pointer',
                   position: 'relative',
                   transition: 'all 0.2s',
@@ -132,7 +141,7 @@ export default function CommandCenter({ navigate }) {
 
         {/* Mission briefing panel */}
         {active && (
-          <div className="sc-scroll">
+          <div className={isMobile ? '' : 'sc-scroll'}>
             <div className="sc-panel" style={{ height: 'fit-content' }}>
               <div
                 style={{
