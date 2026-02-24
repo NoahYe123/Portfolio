@@ -138,7 +138,6 @@ export default function IntelScreen({ navigate }) {
                     alignItems: 'flex-start',
                     gap: '0.5rem',
                     marginBottom: '0.35rem',
-                    flexWrap: 'wrap',
                   }}
                 >
                   <div
@@ -148,6 +147,8 @@ export default function IntelScreen({ navigate }) {
                       fontWeight: 700,
                       color: 'var(--text-bright)',
                       letterSpacing: '0.06em',
+                      flex: 1,
+                      minWidth: 0,
                     }}
                   >
                     {item.org}
@@ -157,6 +158,7 @@ export default function IntelScreen({ navigate }) {
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.9rem',
                       color: 'var(--text-dim)',
+                      flexShrink: 0,
                     }}
                   >
                     {item.period}

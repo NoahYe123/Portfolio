@@ -160,7 +160,7 @@ export const education = [
   {
     institution: 'McGill University',
     degree: 'Bachelor of Engineering — Computer Engineering',
-    period: '2020 – 2024',
+    period: 'Aug 2020 – Dec 2024',
     gpa: '3.59 / 4.0',
     highlights: [
       'Relevant coursework: Algorithms, OS, Compilers, Computer Architecture, Networks, ML',
